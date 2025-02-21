@@ -39,7 +39,7 @@ import {
   export default CommonButton;
   const styles = StyleSheet.create({
     buttonView: {
-      width: responsiveScreenWidth(100),
+      width: responsiveScreenWidth(90),
       height: verticalScale(54),
       flexDirection: 'row',
       paddingVertical: verticalScale(1),

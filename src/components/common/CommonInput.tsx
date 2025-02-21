@@ -11,6 +11,7 @@ import {
     moderateScale, responsiveScreenHeight,
     responsiveScreenWidth,
 } from '../../helper/Scale';
+import { COLORS } from '../../global/theme';
 interface TextInputProps {
     style?: StyleProp<TextStyle>;
     placeholder?: string;
@@ -35,9 +36,9 @@ const CommonInput: React.FC<TextInputProps> = ({
                 placeholder={placeholder}
                 value={value}
                 style={[styles.textInput, style]}
-                // placeholderTextColor={
-                //     placeholderTextColor ? placeholderTextColor : COLORS.white2gray
-                // }
+                placeholderTextColor={
+                    placeholderTextColor ? placeholderTextColor : COLORS.gray
+                }
                 onChangeText={onChangeText}
                 secureTextEntry={secureTextEntry}
             />
@@ -50,15 +51,16 @@ export default CommonInput;
 
 const styles = StyleSheet.create({
     textInput: {
-        // backgroundColor: COLORS.black2gray,
+        backgroundColor: COLORS['white-gray'],
         width: responsiveScreenWidth(90),
-        borderRadius: moderateScale(12.685),
+        borderRadius: moderateScale(12.39),
         paddingHorizontal: responsiveScreenWidth(8),
         paddingVertical: responsiveScreenHeight(2),
         // fontFamily: FONTS.rubik.light,
         fontSize: moderateScale(16),
-        // color: COLORS.white,
-        height: responsiveScreenHeight(7),
+        color: COLORS.black,
+        borderColor: COLORS.gray,
+        borderWidth: 1,
     },
     errMessage: {
         position: 'absolute',
