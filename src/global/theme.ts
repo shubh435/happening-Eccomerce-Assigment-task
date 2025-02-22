@@ -1,6 +1,7 @@
 export const COLORS = {
     // Add your custom color here
     "purple": "#7E2CCF",
+    "purple-light": '#F9F5FD',
     "white": "#FFFFFF",
     "black": "#000000",
     "gray": "#A3A3A3",
