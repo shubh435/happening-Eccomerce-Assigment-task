@@ -1,21 +1,42 @@
-import { View, Text, StyleSheet, SafeAreaView, Image } from 'react-native'
+import { View, Text, StyleSheet, SafeAreaView, Image, StatusBar } from 'react-native'
 import React from 'react'
 import { happeningLogoPng } from '../assets/assets'
-import { horizontalScale, responsiveFontSize, responsiveHeight, responsiveWidth, verticalScale } from '../helper/Scale'
+import { horizontalScale, responsiveHeight, responsiveWidth, verticalScale } from '../helper/Scale'
 import CommonButton from '../components/common/CommonButton'
 import CommonInput from '../components/common/CommonInput'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import { COLORS } from '../global/theme'
+import { MAINSTACK } from '../Constants/Navigator'
 
-const Signin = () => {
-  return (
+interface SigninProps {
+  navigation?: {
+    navigate: (arg0: string) => void;
+  }
+}
+
+interface SigninState {
+
+}
+
+class Signin extends React.Component<SigninProps, SigninState> {
+  constructor(props: SigninProps) {
+    super(props);
+    this.state = {};
+  }
+
+  goToHome = () => {
+    this.props.navigation?.navigate(MAINSTACK.HOMENAVIGATION);
+  }
+  render() {
+    return (
     <View style={styles.container}>
       <SafeAreaView style={styles.safeArea}>
+        <StatusBar hidden />
         <Image source={happeningLogoPng} style={styles.imageStyle} />
         <Text style={styles.title}>Login now to find what's {"\n"} happening around you</Text>
         <CommonInput placeholder='Email address & mobile number' style={styles.input} />
         <CommonInput placeholder='Password' style={styles.input} />
-        <CommonButton title='Login' style={styles.button} />
+        <CommonButton title='Login' style={styles.button} onPress={this.goToHome} />
         <Text style={styles.orText}>Or</Text>
         <Text style={styles.signinText}>Signin with other accounts</Text>
         <View style={styles.iconContainer}>
@@ -27,8 +48,9 @@ const Signin = () => {
     </View>
   )
 }
+}
 
-export default Signin
+export default Signin;
 
 const styles = StyleSheet.create({
   container: {

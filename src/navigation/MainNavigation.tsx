@@ -31,10 +31,11 @@ const HomeNavigation = () => {
 const MainNavigation = () => {
   return (
     <MainStack.Navigator
+    screenOptions={{headerShown: false}}
      >
       <MainStack.Screen
         name={MAINSTACK.AUTHNAVIGATION}
-        component={Signin}
+        component={AuthNavigation}
       />
       <MainStack.Screen
         name={MAINSTACK.HOMENAVIGATION}
