@@ -11,6 +11,7 @@ import { MAINSTACK } from '../Constants/Navigator'
 interface SigninProps {
   navigation?: {
     navigate: (arg0: string) => void;
+    replace: (arg0: string) => void;
   }
 }
 
@@ -25,7 +26,7 @@ class Signin extends React.Component<SigninProps, SigninState> {
   }
 
   goToHome = () => {
-    this.props.navigation?.navigate(MAINSTACK.HOMENAVIGATION);
+    this.props.navigation?.replace(MAINSTACK.HOMENAVIGATION);
   }
   render() {
     return (
