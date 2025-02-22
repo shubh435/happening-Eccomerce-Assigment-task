@@ -4,8 +4,9 @@ export const COLORS = {
     "white": "#FFFFFF",
     "black": "#000000",
     "gray": "#A3A3A3",
+    "light-gray": "#5F6368",
     "white-gray": "#FBFBFB",
-
+    "light-gray-2": "#E5E5E5"
 }
 
 

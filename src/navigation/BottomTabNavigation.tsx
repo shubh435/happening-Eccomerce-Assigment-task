@@ -1,19 +1,19 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import React, { useCallback } from 'react';
+import React from 'react';
 import { HOME } from '../Constants/Navigator';
 import {
-    ImageStyle,
-    StyleProp,
     StyleSheet,
     Text,
 } from 'react-native';
 import FoundationIcon from 'react-native-vector-icons/Foundation';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import AntDesignIcons from 'react-native-vector-icons/AntDesign';
-import { COLORS } from '../global/theme';
+import { COLORS, FONTS } from '../global/theme';
 import {
+    moderateScale,
     responsiveHeight,
     responsiveWidth,
+    verticalScale,
 } from '../helper/Scale';
 import Dashboard from '../screen/Dashboard';
 import BookingPage from '../screen/BookingPage';
@@ -23,25 +23,6 @@ import SearchPage from '../screen/SearchPage';
 const BottomTab = createBottomTabNavigator();
 
 const BottomTabStackNavigator = () => {
-    const callback = (props: {
-        color?: string;
-        size?: number;
-        IconType?: StyleProp<ImageStyle>;
-        image?: string;
-        focused?: boolean;
-    }) => {
-        return (
-            <>
-                {/* <Image
-          source={image as ImageSourcePropType}
-          tintColor={color}
-          style={styles.icon}
-        /> */}
-                <Text></Text>
-            </>
-        );
-    };
-    const BottomTabIcon = useCallback(callback, []);
 
     return (
         <BottomTab.Navigator
@@ -49,10 +30,10 @@ const BottomTabStackNavigator = () => {
                 headerShown: false,
                 tabBarShowLabel: true,
                 tabBarStyle: styles.container,
-                // tabBarActiveTintColor: "blue",
-                // tabBarInactiveTintColor: "grey",
+                tabBarItemStyle: styles.itemContainer,
+                tabBarActiveTintColor: COLORS.purple,
+                tabBarInactiveTintColor: COLORS["light-gray"],
                 tabBarIconStyle: styles.tabBarIconStyle,
-                
                 tabBarLabelStyle: styles.tabBarLableStyle,
                 tabBarHideOnKeyboard: true,
             }}>
@@ -60,36 +41,36 @@ const BottomTabStackNavigator = () => {
                 name={HOME.DASHBOARD}
                 component={Dashboard}
                 options={{
-                    tabBarLabel: HOME.DASHBOARD,
-                    tabBarIcon: ({ color, size, focused }) =>
-                        <FoundationIcon name="home" size={size} color={color} />,
+                    tabBarLabel: ({ color }) => <Text numberOfLines={1} style={[{ color: color }]}>{HOME.DASHBOARD}</Text>,
+                    tabBarIcon: ({ color }) =>
+                        <FoundationIcon name="home" size={20} color={color} />,
                 }}
             />
             <BottomTab.Screen
                 name={HOME.BOOKING}
                 component={BookingPage}
                 options={{
-                    tabBarLabel: HOME.BOOKING,
-                    tabBarIcon: ({ color, size, focused }) =>
-                        <MaterialCommunityIcons name="calendar-check-outline" size={size} color={color} />,
+                    tabBarLabel: ({ color }) => <Text numberOfLines={1} style={{ color: color }}>{HOME.BOOKING}</Text>,
+                    tabBarIcon: ({ color }) =>
+                        <MaterialCommunityIcons name="calendar-check-outline" size={20} color={color} />,
                 }}
             />
             <BottomTab.Screen
                 name={HOME.SEARCH}
                 component={SearchPage}
                 options={{
-                    tabBarLabel: HOME.SEARCH,
-                    tabBarIcon: ({ color, size, focused }) =>
-                        <AntDesignIcons name="search1" size={size} color={color} />,
+                    tabBarLabel: ({ color }) => <Text numberOfLines={1} style={{ color: color }}>{HOME.SEARCH}</Text>,
+                    tabBarIcon: ({ color }) =>
+                        <AntDesignIcons name="search1" size={20} color={color} />,
                 }}
             />
             <BottomTab.Screen
                 name={HOME.WISHLIST}
                 component={WishList}
                 options={{
-                    tabBarLabel: HOME.WISHLIST,
-                    tabBarIcon: ({ color, size, focused }) =>
-                        <AntDesignIcons name="hearto" size={size} color={color} />,
+                    tabBarLabel: ({ color }) => <Text numberOfLines={1} style={{ color: color }}>{HOME.WISHLIST}</Text>,
+                    tabBarIcon: ({ color }) =>
+                        <AntDesignIcons name="hearto" size={20} color={color} />,
                 }}
             />
 
@@ -97,9 +78,9 @@ const BottomTabStackNavigator = () => {
                 name={HOME.ACCOUNT}
                 component={AccountPage}
                 options={{
-                    tabBarLabel: HOME.ACCOUNT,
-                    tabBarIcon: ({ color, size, focused }) =>
-                        <AntDesignIcons name="user" size={size} color={color} />,
+                    tabBarLabel: ({ color }) => <Text numberOfLines={1} style={{ color: color }}>{HOME.ACCOUNT}</Text>,
+                    tabBarIcon: ({ color }) =>
+                        <AntDesignIcons name="user" size={20} color={color} />,
                 }}
             />
         </BottomTab.Navigator>
@@ -110,14 +91,23 @@ export default BottomTabStackNavigator;
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: "grey",
+        backgroundColor: COLORS.white,
+        borderTopColor: COLORS["light-gray-2"],
+        borderTopWidth: 1,
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        right: 0,
+        width: responsiveWidth(100),
+        height: verticalScale(100),
+
+    },
+    itemContainer: {
+        paddingTop: verticalScale(10),
+        justifyContent: 'center',
         alignItems: 'center',
-        height: responsiveHeight(10),
     },
     tabBarIconStyle: {
-        width: responsiveWidth(7),
-        height: responsiveWidth(7),
-        resizeMode: 'cover',
     },
     icon: {
         width: responsiveWidth(7),
@@ -125,15 +115,16 @@ const styles = StyleSheet.create({
         resizeMode: 'contain',
     },
     tabBarLableStyle: {
-        fontSize: 12,
-        color: COLORS.black,
+        fontSize: moderateScale(14),
+        color: COLORS.gray,
+        fontFamily: FONTS.inter['regular[400]'],
+
     },
     gradient: {
         flex: 1,
         width: '90%',
         height: responsiveHeight(0.5),
         position: 'absolute',
-        alignSelf: 'center',
         top: responsiveHeight(-0.2),
     },
 });
