@@ -6,10 +6,11 @@ import {
   HOME,
   MAINSTACK,
 } from '../Constants/Navigator.ts';
-import Dashboard from '../screen/Dashboard.tsx';
+import BottomTabStackNavigator from './BottomTabNavigation.tsx';
 const MainStack = createNativeStackNavigator();
 const AuthStack = createNativeStackNavigator();
 const HomeStack = createNativeStackNavigator();
+
 
 const AuthNavigation = () => {
   return (
@@ -23,7 +24,7 @@ const AuthNavigation = () => {
 const HomeNavigation = () => {
   return (
     <HomeStack.Navigator screenOptions={{headerShown: false}}>
-      <HomeStack.Screen name={HOME.DASHBOARD} component={Dashboard} />
+      <HomeStack.Screen name={HOME.BOTTOMTAB} component={BottomTabStackNavigator} />
     </HomeStack.Navigator>
   );
 };
