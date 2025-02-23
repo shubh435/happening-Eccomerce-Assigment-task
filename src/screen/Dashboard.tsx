@@ -1,11 +1,26 @@
-import { View, Text, SafeAreaView, StatusBar, StyleSheet, Image } from 'react-native'
+import { View, Text, SafeAreaView, StatusBar, StyleSheet, Image, TouchableOpacity, StyleProp, ViewStyle, TextStyle } from 'react-native'
 import React from 'react'
 import { COLORS, FONTS } from '../global/theme'
 import { happeningLogoPng } from '../assets/assets'
 import AntdesignIcon from 'react-native-vector-icons/AntDesign'
 import OcticonsIcon from 'react-native-vector-icons/Octicons'
 import { horizontalScale, moderateScale, verticalScale } from '../helper/Scale'
+interface ButtonProps {
+  title: string;
+  onPress?: () => void;
+  buttonStyle?: StyleProp<ViewStyle>,
+  textStyle?: StyleProp<TextStyle>;
+  isActive?: boolean;
+}
+const Button: React.FC<ButtonProps> = ({ title, onPress, buttonStyle, textStyle, isActive = false }) => {
+  return (
+    <TouchableOpacity style={[styles.buttonStyles, buttonStyle, isActive && styles.buttonActiveStyle]} onPress={onPress}>
+      <Text numberOfLines={1} style={[styles.textStyle, textStyle, isActive && styles.textActiveStyle]}>{title}</Text>
+    </TouchableOpacity>
+  )
+}
 const Dashboard = () => {
+
   return (
     <View style={styles.container}>
 
@@ -34,7 +49,13 @@ const Dashboard = () => {
             </View>
           </View>
 
-          
+          <View style={styles.buttonContainer}>
+            <Button title='Entertainment' isActive buttonStyle={styles.button1Style} />
+            <Button title='Academic' />
+            <Button title='Volunteering' buttonStyle={styles.buttonEndStyle} />
+          </View>
+
+
 
 
           <Text>Dashboard</Text>
@@ -97,5 +118,42 @@ const styles = StyleSheet.create({
     fontSize: moderateScale(12),
     fontFamily: FONTS.poppins.regular,
     color: COLORS.black
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    margin: verticalScale(10),
+    alignItems: 'center',
+    borderRadius: moderateScale(10),
+    justifyContent: "space-between"
+  },
+  buttonStyles: {
+    paddingVertical: verticalScale(10),
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderColor: COLORS['purple-light-2'],
+    borderWidth: 1,
+    width: "30%"
+  },
+  buttonActiveStyle:{
+    backgroundColor: COLORS['purple-light'],
+    borderColor: COLORS.purple
+  },
+  button1Style: {
+    borderTopLeftRadius: moderateScale(10),
+    borderBottomLeftRadius: moderateScale(10),
+  },
+  buttonEndStyle: {
+    borderTopRightRadius: moderateScale(10),
+    borderBottomRightRadius: moderateScale(10),
+  },
+
+  textStyle: {
+    fontFamily: FONTS.poppins.medium,
+    fontSize: moderateScale(14),
+    color: COLORS["gray-2"]
+  },
+  textActiveStyle: {
+    color: COLORS.purple
   },
 })

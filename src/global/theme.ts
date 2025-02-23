@@ -2,10 +2,13 @@ export const COLORS = {
     // Add your custom color here
     "purple": "#7E2CCF",
     "purple-light": '#F9F5FD',
+    "purple-light-2": '#EEE6F9',
     "white": "#FFFFFF",
     "black": "#000000",
     "gray": "#A3A3A3",
+    "gray-2": "#3C3C3C",
     "light-gray": "#5F6368",
+    
     "white-gray": "#FBFBFB",
     "light-gray-2": "#E5E5E5"
 }
