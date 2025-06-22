@@ -58,6 +58,43 @@ export const categoryData:CategoryData[] = [
     }
 ]
 
+export const LocationData = {
+    'Current Location': [
+      {
+        id:"1",
+        city: 'Bangalore',
+        address: '#2 KR Layout, 4th phase, Indiranagar',
+        selected: true,
+      },
+    ],
+    'Recent Location': [
+      {
+        id:"2",
+        city: 'Pune',
+        address: '#2 KR Layout, 4th phase, Indiranagar',
+        selected: false,
+      },
+      {
+        id:"3",
+        city: 'Nagpur',
+        address: '#2 KR Layout, 4th phase, Indiranagar',
+        selected: false,
+      },
+      {
+        id:"4",
+        city: 'Mumbai',
+        address: '#2 KR Layout, 4th phase, Indiranagar',
+        selected: false,
+      },
+      {
+        id:"5",
+        city: 'Hyderabad',
+        address: '#2 KR Layout, 4th phase, Indiranagar',
+        selected: false,
+      },
+    ],
+  }
+
 
 export const dashboardButtonData = [
     { id: 1, name: 'Entertainment', isActive: true },

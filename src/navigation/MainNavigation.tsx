@@ -7,6 +7,7 @@ import {
   MAINSTACK,
 } from '../Constants/Navigator.ts';
 import BottomTabStackNavigator from './BottomTabNavigation.tsx';
+import BookingDetailsPage from '../screen/BookingDetailsPage.tsx';
 const MainStack = createNativeStackNavigator();
 const AuthStack = createNativeStackNavigator();
 const HomeStack = createNativeStackNavigator();
@@ -25,6 +26,7 @@ const HomeNavigation = () => {
   return (
     <HomeStack.Navigator screenOptions={{headerShown: false}}>
       <HomeStack.Screen name={HOME.BOTTOMTAB} component={BottomTabStackNavigator} />
+      <HomeStack.Screen name={HOME.BOOKINGDetails} component={BookingDetailsPage} />
     </HomeStack.Navigator>
   );
 };
@@ -33,7 +35,7 @@ const MainNavigation = () => {
   return (
     <MainStack.Navigator
     screenOptions={{headerShown: false}}
-    initialRouteName={MAINSTACK.HOMENAVIGATION}
+    initialRouteName={MAINSTACK.AUTHNAVIGATION}
      >
       <MainStack.Screen
         name={MAINSTACK.AUTHNAVIGATION}

@@ -14,10 +14,11 @@ import {
   ImageSourcePropType,
   Modal,
   Switch,
+  TouchableWithoutFeedback,
 } from 'react-native';
-import React, {useState} from 'react';
-import {COLORS, FONTS} from '../global/theme';
-import {happeningLogoPng, radioPng, radioSelectedPng} from '../assets/assets';
+import React, { useState } from 'react';
+import { COLORS, FONTS } from '../global/theme';
+import { happeningLogoPng, radioPng, radioSelectedPng } from '../assets/assets';
 import AntdesignIcon from 'react-native-vector-icons/AntDesign';
 import OcticonsIcon from 'react-native-vector-icons/Octicons';
 import {
@@ -31,11 +32,15 @@ import {
   CategoryData,
   categoryData,
   dashboardButtonData,
+  LocationData,
   MostPopularData,
   mostPopularData,
   ResumeBookingData,
   resumeBookingData,
 } from '../global/staticData';
+import CommonButton from '../components/common/CommonButton';
+import { useNavigation } from '@react-navigation/native';
+import { HOME } from '../Constants/Navigator';
 interface ButtonProps {
   title: string;
   onPress?: () => void;
@@ -43,8 +48,15 @@ interface ButtonProps {
   textStyle?: StyleProp<TextStyle>;
   isActive?: boolean;
 }
+
+interface DashboardProps {
+  navigation?: {
+    navigate: (arg0: string,obj:any) => void;
+    replace: (arg0: string) => void;
+  }
+}
 interface Places {
-  id:string,
+  id: string,
   city: string;
   address: string;
   selected: boolean;
@@ -78,7 +90,8 @@ const Button: React.FC<ButtonProps> = ({
   );
 };
 
-const Dashboard = () => {
+
+const Dashboard:React.FC<DashboardProps> = (props) => {
   const [activeButton, setActiveButton] = React.useState(dashboardButtonData);
   const [category, setCategory] = React.useState<CategoryData[]>(categoryData);
   const [mostPopular, setMostPopular] =
@@ -86,53 +99,29 @@ const Dashboard = () => {
   const [resumeBooking, setResumeBooking] =
     React.useState<ResumeBookingData[]>(resumeBookingData);
   const [isEnabled, setIsEnabled] = useState(false);
-  const [locations, setLocations] = useState<Record<string, Places[]>>({
-    'Current Location': [
-      {
-        id:"1",
-        city: 'Bangalore',
-        address: '#2 KR Layout, 4th phase, Indiranagar',
-        selected: true,
-      },
-    ],
-    'Recent Location': [
-      {
-        id:"2",
-        city: 'Pune',
-        address: '#2 KR Layout, 4th phase, Indiranagar',
-        selected: false,
-      },
-      {
-        id:"3",
-        city: 'Nagpur',
-        address: '#2 KR Layout, 4th phase, Indiranagar',
-        selected: false,
-      },
-      {
-        id:"4",
-        city: 'Mumbai',
-        address: '#2 KR Layout, 4th phase, Indiranagar',
-        selected: false,
-      },
-      {
-        id:"5",
-        city: 'Hyderabad',
-        address: '#2 KR Layout, 4th phase, Indiranagar',
-        selected: false,
-      },
-    ],
-  });
+  const [isOpenLocModal, setIsOpenLocModal] = useState(false);
+  const [locations, setLocations] = useState<Record<string, Places[]>>(LocationData);
+  const navigate = useNavigation()
   const handlePress = (buttonId: number) => {
     const newButton = activeButton.map(item => {
       if (item.id === buttonId) {
-        return {...item, isActive: true};
+        return { ...item, isActive: true };
       } else {
-        return {...item, isActive: false};
+        return { ...item, isActive: false };
       }
     });
     setActiveButton(newButton);
   };
 
+    const handleNavigate = (productId:number)=> {
+    props.navigation?.navigate(HOME.BOOKINGDetails,{
+      id: productId
+    })
+  }
+
+  const toggleLocModal = () => {
+    setIsOpenLocModal(!isOpenLocModal)
+  }
   const renderCatList = (item: CategoryData) => {
     return (
       <TouchableOpacity style={styles.cardContainer}>
@@ -146,7 +135,7 @@ const Dashboard = () => {
 
   const renderMostPopularList = (item: MostPopularData) => {
     return (
-      <TouchableOpacity>
+      <TouchableOpacity onPress={()=>handleNavigate(item.id)}>
         <Image
           source={item.image as ImageSourcePropType}
           style={styles.imageCardStye}
@@ -156,7 +145,7 @@ const Dashboard = () => {
   };
   const renderBookingList = (item: ResumeBookingData) => {
     return (
-      <TouchableOpacity style={{position: 'relative'}}>
+      <TouchableOpacity style={{ position: 'relative' }} onPress={()=>handleNavigate(item.id)}>
         <View style={styles.closeIconContainer}>
           <AntdesignIcon
             name="closecircleo"
@@ -193,24 +182,26 @@ const Dashboard = () => {
   };
   const renderLocation = () => {
     return (
-      <Modal transparent>
+      <Modal transparent visible={isOpenLocModal}>
         <StatusBar
           backgroundColor={COLORS['transparent-light']}
           hidden={false}
         />
+        <TouchableWithoutFeedback style={{flex:1}} onPress={toggleLocModal}>
         <View style={styles.locationContainerMain}>
           <View style={[styles.viewLocation]}>
             <Text style={styles.modalHeading}>Select your location</Text>
             <View style={styles.switchStyle}>
               <Text style={styles.titleModal}>Phone location permission</Text>
               <Switch
-                trackColor={{false: '#767577', true: '#81b0ff'}}
+                trackColor={{ false: '#767577', true: '#81b0ff' }}
                 thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
                 ios_backgroundColor="#3e3e3e"
                 onValueChange={toggleSwitch}
                 value={isEnabled}
               />
             </View>
+          <ScrollView>
             {Object.entries(locations).map(([category, places]) => (
               <View key={category} style={styles.locationView}>
                 <Text style={[styles.modalHeading, styles.modalHeadingView]}>
@@ -220,25 +211,25 @@ const Dashboard = () => {
                 <FlatList
                   data={places}
                   showsVerticalScrollIndicator
-                  keyExtractor={(item)=>item.id}
-                  renderItem={({item: place, index}) => {
+                  keyExtractor={(item) => item.id}
+                  renderItem={({ item: place, index }) => {
                     return (
                       <TouchableOpacity
                         key={index}
-                        onPress={()=> handleSelectLocation(place)}
+                        onPress={() => handleSelectLocation(place)}
                         style={[
                           styles.locationContainer,
                           {
                             margin: verticalScale(0),
                           },
-                          !place.selected && {backgroundColor: COLORS.white},
+                          !place.selected && { backgroundColor: COLORS.white },
                         ]}>
                         <OcticonsIcon
                           name="location"
                           size={30}
                           color={COLORS['light-gray']}
                         />
-                        <View style={{flex: 1}}>
+                        <View style={{ flex: 1 }}>
                           <Text style={styles.cityTextStyle}>{place.city}</Text>
                           <Text style={styles.adressTextStyle}>
                             {place.address}
@@ -258,17 +249,22 @@ const Dashboard = () => {
                 />
               </View>
             ))}
+          </ScrollView>
+          <CommonButton title='Confirm' onPress={() => toggleLocModal()} />
           </View>
         </View>
+        </TouchableWithoutFeedback>
       </Modal>
     );
   };
+
+
   return (
     <View style={styles.container}>
-      <SafeAreaView style={{flex: 1}}>
+      <SafeAreaView style={{ flex: 1 }}>
         <StatusBar hidden />
         {renderLocation()}
-        <View style={{flex: 1}}>
+        <View style={{ flex: 1 }}>
           {/* Header start here */}
           <View style={styles.imageContainer}>
             <Text></Text>
@@ -283,8 +279,8 @@ const Dashboard = () => {
             </View>
           </View>
           {/* Header End here */}
-
-          <View style={styles.locationContainer}>
+          {/* Location start here */}
+          <TouchableOpacity onPress={() => toggleLocModal()} style={styles.locationContainer}>
             <OcticonsIcon
               name="location"
               size={30}
@@ -296,8 +292,8 @@ const Dashboard = () => {
                 #2 KR Layout, Indiranagar
               </Text>
             </View>
-          </View>
-
+          </TouchableOpacity>
+          {/* Location end here */}
           <View style={styles.buttonContainer}>
             {activeButton.map((item, index) => (
               <Button
@@ -320,9 +316,9 @@ const Dashboard = () => {
                 data={category}
                 horizontal
                 keyExtractor={item => item.id.toString()}
-                renderItem={({item}) => renderCatList(item)}
-                // numColumns={4}
-                // columnWrapperStyle={{flexWrap: 'wrap'}}
+                renderItem={({ item }) => renderCatList(item)}
+              // numColumns={4}
+              // columnWrapperStyle={{flexWrap: 'wrap'}}
               />
             </View>
 
@@ -332,7 +328,7 @@ const Dashboard = () => {
                 data={mostPopular}
                 horizontal
                 keyExtractor={item => item.id.toString()}
-                renderItem={({item}) => renderMostPopularList(item)}
+                renderItem={({ item }) => renderMostPopularList(item)}
               />
             </View>
 
@@ -342,7 +338,7 @@ const Dashboard = () => {
                 data={resumeBooking}
                 horizontal
                 keyExtractor={item => item.id.toString()}
-                renderItem={({item}) => renderBookingList(item)}
+                renderItem={({ item }) => renderBookingList(item)}
               />
             </View>
 
@@ -352,8 +348,8 @@ const Dashboard = () => {
                 data={mostPopular}
                 horizontal
                 keyExtractor={item => item.id.toString()}
-                renderItem={({item}) => renderMostPopularList(item)}
-                contentContainerStyle={{paddingBottom: responsiveHeight(15)}}
+                renderItem={({ item }) => renderMostPopularList(item)}
+                contentContainerStyle={{ paddingBottom: responsiveHeight(15) }}
               />
             </View>
           </ScrollView>
