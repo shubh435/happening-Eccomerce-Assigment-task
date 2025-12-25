@@ -1,24 +1,24 @@
 export const AUTH = {
-    SIGNIN: 'Signin',
-}
+  SIGNIN: 'Signin',
+};
 
 export const HOME = {
-    DASHBOARD: 'Dashboard',
-    "BOOKING": 'Booking',
-    "SEARCH" : 'Search',
-    "WISHLIST" : 'Wishlist',
-    "ACCOUNT" : 'Account',
-    "BOTTOMTAB" : 'BottomTab',
-    "EVENTDETAIL" : 'EventDetail',
-    "SEATSELECTION" : 'SeatSelection',
-    "ENDPROTOTYPE" : 'EndPrototype',
-
-}
+  DASHBOARD: 'Dashboard',
+  BOOKING: 'Booking',
+  SEARCH: 'Search',
+  WISHLIST: 'Wishlist',
+  ACCOUNT: 'Account',
+  BOTTOMTAB: 'BottomTab',
+  EVENTDETAIL: 'EventDetail',
+  SEATSELECTION: 'SeatSelection',
+  ENDPROTOTYPE: 'EndPrototype',
+  BOOKINGDetails: 'BOOKINGDetails',
+};
 export const MAINSTACK = {
-    AUTHNAVIGATION: 'AuthNavigation',
-    HOMENAVIGATION: 'HomeNavigation',
-    DUMMYStack: 'DummyStack',
-}
+  AUTHNAVIGATION: 'AuthNavigation',
+  HOMENAVIGATION: 'HomeNavigation',
+  DUMMYStack: 'DummyStack',
+};
 export const BOTTOMSTACK = {
-    HOMEBOTTOM: 'BottomTabNavigation',
-}
+  HOMEBOTTOM: 'BottomTabNavigation',
+};

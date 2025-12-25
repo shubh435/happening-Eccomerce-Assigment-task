@@ -4,20 +4,17 @@ import Signin from '../screen/Signin.tsx';
 import EventDetail from '../screen/EventDetail.tsx';
 import SeatSelection from '../screen/SeatSelection.tsx';
 import EndPrototype from '../screen/EndPrototype.tsx';
-import {
-  AUTH,
-  HOME,
-  MAINSTACK,
-} from '../Constants/Navigator.ts';
+import {AUTH, HOME, MAINSTACK} from '../Constants/Navigator.ts';
 import BottomTabStackNavigator from './BottomTabNavigation.tsx';
+import BookingDetailsPage from '../screen/BookingDetailsPage.tsx';
 const MainStack = createNativeStackNavigator();
 const AuthStack = createNativeStackNavigator();
 const HomeStack = createNativeStackNavigator();
 
-
 const AuthNavigation = () => {
   return (
-    <AuthStack.Navigator screenOptions={{headerShown: false}}
+    <AuthStack.Navigator
+      screenOptions={{headerShown: false}}
       initialRouteName={AUTH.SIGNIN}>
       <AuthStack.Screen name={AUTH.SIGNIN} component={Signin} />
     </AuthStack.Navigator>
@@ -27,10 +24,17 @@ const AuthNavigation = () => {
 const HomeNavigation = () => {
   return (
     <HomeStack.Navigator screenOptions={{headerShown: false}}>
-      <HomeStack.Screen name={HOME.BOTTOMTAB} component={BottomTabStackNavigator} />
+      <HomeStack.Screen
+        name={HOME.BOTTOMTAB}
+        component={BottomTabStackNavigator}
+      />
       <HomeStack.Screen name={HOME.EVENTDETAIL} component={EventDetail} />
       <HomeStack.Screen name={HOME.SEATSELECTION} component={SeatSelection} />
       <HomeStack.Screen name={HOME.ENDPROTOTYPE} component={EndPrototype} />
+      <HomeStack.Screen
+        name={HOME.BOOKINGDetails}
+        component={BookingDetailsPage}
+      />
     </HomeStack.Navigator>
   );
 };
@@ -38,8 +42,8 @@ const HomeNavigation = () => {
 const MainNavigation = () => {
   return (
     <MainStack.Navigator
-    screenOptions={{headerShown: false}}
-     >
+      screenOptions={{headerShown: false}}
+      initialRouteName={MAINSTACK.AUTHNAVIGATION}>
       <MainStack.Screen
         name={MAINSTACK.AUTHNAVIGATION}
         component={AuthNavigation}
