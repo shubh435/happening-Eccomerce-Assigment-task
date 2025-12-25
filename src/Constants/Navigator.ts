@@ -9,6 +9,7 @@ export const HOME = {
     "WISHLIST" : 'Wishlist',
     "ACCOUNT" : 'Account',
     "BOTTOMTAB" : 'BottomTab',
+    "BOOKINGDetails" : 'BOOKINGDetails',
 
 }
 export const MAINSTACK = {
