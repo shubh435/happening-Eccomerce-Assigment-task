@@ -9,6 +9,9 @@ export const HOME = {
     "WISHLIST" : 'Wishlist',
     "ACCOUNT" : 'Account',
     "BOTTOMTAB" : 'BottomTab',
+    "EVENTDETAIL" : 'EventDetail',
+    "SEATSELECTION" : 'SeatSelection',
+    "ENDPROTOTYPE" : 'EndPrototype',
 
 }
 export const MAINSTACK = {

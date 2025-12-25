@@ -1,6 +1,9 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Signin from '../screen/Signin.tsx';
+import EventDetail from '../screen/EventDetail.tsx';
+import SeatSelection from '../screen/SeatSelection.tsx';
+import EndPrototype from '../screen/EndPrototype.tsx';
 import {
   AUTH,
   HOME,
@@ -25,6 +28,9 @@ const HomeNavigation = () => {
   return (
     <HomeStack.Navigator screenOptions={{headerShown: false}}>
       <HomeStack.Screen name={HOME.BOTTOMTAB} component={BottomTabStackNavigator} />
+      <HomeStack.Screen name={HOME.EVENTDETAIL} component={EventDetail} />
+      <HomeStack.Screen name={HOME.SEATSELECTION} component={SeatSelection} />
+      <HomeStack.Screen name={HOME.ENDPROTOTYPE} component={EndPrototype} />
     </HomeStack.Navigator>
   );
 };

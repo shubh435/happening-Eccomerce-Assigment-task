@@ -35,15 +35,16 @@ class Signin extends React.Component<SigninProps, SigninState> {
         <StatusBar hidden />
         <Image source={happeningLogoPng} style={styles.imageStyle} />
         <Text style={styles.title}>Login now to find what's {"\n"} happening around you</Text>
-        <CommonInput placeholder='Email address & mobile number' style={styles.input} />
-        <CommonInput placeholder='Password' style={styles.input} />
+        <CommonInput placeholder='Email address or mobile number' style={styles.input} />
+        <Text style={styles.sendOtpText}>Send OTP</Text>
+        <CommonInput placeholder='Click on Send OTP' style={styles.input} />
         <CommonButton title='Login' style={styles.button} onPress={this.goToHome} />
-        <Text style={styles.orText}>Or</Text>
-        <Text style={styles.signinText}>Signin with other accounts</Text>
+        <Text style={styles.orText}>or</Text>
+        <Text style={styles.signinText}>Sign in with other accounts</Text>
         <View style={styles.iconContainer}>
-          <AntDesign name='instagram' size={20} color={COLORS.black} />
-          <AntDesign name='facebook-square' size={20} color={COLORS.black} />
-          <AntDesign name='twitter' size={20} color={COLORS.black} />
+          <AntDesign name='instagram' size={30} color='#E4405F' />
+          <AntDesign name='facebook-square' size={30} color='#1877F2' />
+          <AntDesign name='twitter' size={30} color='#1DA1F2' />
         </View>
       </SafeAreaView>
     </View>
@@ -80,6 +81,14 @@ const styles = StyleSheet.create({
   },
   input: {
     // marginVertical: verticalScale(7),
+  },
+  sendOtpText: {
+    alignSelf: 'flex-end',
+    color: COLORS.purple,
+    fontSize: 14,
+    fontWeight: '500',
+    marginTop: verticalScale(5),
+    marginRight: horizontalScale(20),
   },
   button: {
     marginVertical: verticalScale(20),
